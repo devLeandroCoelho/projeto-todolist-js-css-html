@@ -1,0 +1,46 @@
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Tarefas</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <button id="new-task-btn">Nova Tarefa</button>
+
+  <div id="task-container" class="task-container">
+    <!-- Tarefas serão adicionadas diretamente aqui -->
+  </div>
+
+  <div id="modal">
+    <div id="modal-content">
+      <label for="edit-title">Título:</label>
+      <input type="text" id="edit-title">
+
+      <label for="edit-content">Conteúdo:</label>
+      <textarea id="edit-content"></textarea>
+
+      <span id="edit-icon" class="edit-icon" onclick="openModal()">&#9998;</span>
+
+      <div id="button-container">
+        <button id="delete-btn">Deletar</button>
+        <button id="save-btn">Salvar</button>
+        <button id="cancel-btn" onclick="closeModal()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+
+  <!-- Rodapé fixo -->
+  <footer style="position: fixed; bottom: 0; width: 100%; background-color: #333; color: white; text-align: center; padding: 10px;">
+    Desenvolvido por Leandro Prazeres Coelho - devleandrocoelho
+  </footer>
+</body>
+
+</html>
