@@ -33,7 +33,7 @@ nav {
   color: white;
 }
 
-nav btn {
+nav button {
   background-color: #4caf50;
   color: white;
   border: none;
@@ -41,7 +41,7 @@ nav btn {
   cursor: pointer;
 }
 
-nav btn:hover {
+nav button:hover {
   background-color: #45a049;
 }
 
@@ -131,7 +131,7 @@ nav btn:hover {
   gap: 10px;
 }
 
-btn {
+button {
   background-color: #4caf50;
   color: white;
   border: none;
@@ -139,7 +139,7 @@ btn {
   cursor: pointer;
 }
 
-btn:hover {
+button:hover {
   background-color: #45a049;
 }
 
