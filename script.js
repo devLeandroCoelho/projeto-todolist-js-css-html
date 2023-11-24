@@ -20,6 +20,7 @@ function deleteSelectedTask() {
     const index = Array.from(selectedTask.parentElement.children).indexOf(
       selectedTask
     );
+    closeModal();
     deleteTask(index);
   } else {
     alert("Selecione uma tarefa para excluir.");
@@ -65,6 +66,7 @@ function deleteTask(index) {
   const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
   tasks.splice(index, 1);
   localStorage.setItem("tasks", JSON.stringify(tasks));
+  closeModal();
   renderTasks();
 }
 
