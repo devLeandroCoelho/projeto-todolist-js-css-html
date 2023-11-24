@@ -9,6 +9,8 @@ body {
   justify-content: center;
   align-items: flex-start;
   padding: 20px;
+  background-color: cadetblue;
+
 }
 
 header {
@@ -31,7 +33,7 @@ nav {
   color: white;
 }
 
-nav button {
+nav btn {
   background-color: #4caf50;
   color: white;
   border: none;
@@ -39,7 +41,7 @@ nav button {
   cursor: pointer;
 }
 
-nav button:hover {
+nav btn:hover {
   background-color: #45a049;
 }
 
@@ -68,7 +70,6 @@ nav button:hover {
   gap: 20px;
   margin-top: 55px;
   padding: 20px;
-  background-color: cadetblue;
 }
 
 .task-card {
@@ -130,7 +131,7 @@ nav button:hover {
   gap: 10px;
 }
 
-button {
+btn {
   background-color: #4caf50;
   color: white;
   border: none;
@@ -138,7 +139,7 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+btn:hover {
   background-color: #45a049;
 }
 
