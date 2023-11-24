@@ -25,11 +25,9 @@
       <label for="edit-content">Conteúdo:</label>
       <textarea id="edit-content"></textarea>
 
-      <span id="edit-icon" class="edit-icon" onclick="openModal()">&#9998;</span>
-
       <div id="button-container">
-        <button id="delete-btn">Deletar</button>
-        <button id="save-btn">Salvar</button>
+        <button id="delete-btn" onclick="deleteSelectedTask()">Deletar</button>
+        <button id="save-btn" onclick="saveTask()">Salvar</button>
         <button id="cancel-btn" onclick="closeModal()">Cancelar</button>
       </div>
     </div>

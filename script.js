@@ -1,8 +1,6 @@
 // script.js
 
-const taskContainer = document.getElementById("task-container");
 const modal = document.getElementById("modal");
-const saveBtn = document.getElementById("save-btn");
 const newTaskBtn = document.getElementById("new-task-btn");
 let editingTaskIndex = -1;
 
@@ -32,8 +30,8 @@ function deleteSelectedTask() {
 function addEditIcon(taskCard, index) {
   const editIcon = document.createElement("span");
   editIcon.classList.add("edit-icon");
-  editIcon.innerHTML =
-    '      <span id="edit-icon" class="edit-icon" onclick="openModal()">&#9998;</span>    ';
+  editIcon.innerHTML = "&#9998;";
+
   editIcon.addEventListener("click", () => openModal(index));
 
   taskCard.appendChild(editIcon);
@@ -58,8 +56,8 @@ function saveTask() {
   }
 
   localStorage.setItem("tasks", JSON.stringify(tasks));
-  renderTasks();
   closeModal();
+  renderTasks();
 }
 
 // Função para deletar uma tarefa
@@ -67,7 +65,6 @@ function deleteTask(index) {
   const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
   tasks.splice(index, 1);
   localStorage.setItem("tasks", JSON.stringify(tasks));
-  closeModal();
   renderTasks();
 }
 
@@ -87,6 +84,7 @@ function closeModal() {
 
 // Função para renderizar as tarefas na página
 function renderTasks() {
+  const taskContainer = document.getElementById("task-container");
   taskContainer.innerHTML = "";
 
   const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
@@ -111,7 +109,5 @@ function renderTasks() {
 // Executa a função renderTasks quando a página é carregada
 window.onload = renderTasks;
 
-// Adiciona um ouvinte de eventos para o botão de salvar
-saveBtn.addEventListener("click", saveTask);
 // Adiciona um ouvinte de eventos para o botão "Nova Tarefa"
 newTaskBtn.addEventListener("click", openNewTaskModal);
