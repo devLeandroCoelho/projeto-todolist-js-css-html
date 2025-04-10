@@ -1,7 +1,14 @@
-const newTaskBtn = document.getElementById("new-task-btn");
-const taskContainer = document.getElementById("task-container");
-const modalElement = new bootstrap.Modal(document.getElementById("taskModal"));
+let modalElement;
 let editingTaskIndex = -1;
+
+window.onload = function () {
+  modalElement = new bootstrap.Modal(document.getElementById("taskModal"));
+
+  renderTasks();
+
+  const newTaskBtn = document.getElementById("new-task-btn");
+  newTaskBtn.addEventListener("click", openNewTaskModal);
+};
 
 function openNewTaskModal() {
   document.getElementById("edit-title").value = "";
@@ -57,14 +64,6 @@ function saveTask() {
   renderTasks();
 }
 
-function deleteTask(index) {
-  const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-  tasks.splice(index, 1);
-  localStorage.setItem("tasks", JSON.stringify(tasks));
-  closeModal();
-  renderTasks();
-}
-
 function addEditIcon(taskCard, index) {
   const editIcon = document.createElement("span");
   editIcon.classList.add("edit-icon");
@@ -77,6 +76,7 @@ function addEditIcon(taskCard, index) {
 }
 
 function renderTasks() {
+  const taskContainer = document.getElementById("task-container");
   taskContainer.innerHTML = "";
   const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
@@ -97,6 +97,3 @@ function renderTasks() {
     taskContainer.appendChild(taskCard);
   });
 }
-
-window.onload = renderTasks;
-newTaskBtn.addEventListener("click", openNewTaskModal);
