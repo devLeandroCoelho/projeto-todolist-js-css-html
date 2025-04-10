@@ -1,44 +1,40 @@
-// script.js
-
-const modal = document.getElementById("modal");
 const newTaskBtn = document.getElementById("new-task-btn");
+const taskContainer = document.getElementById("task-container");
+const modalElement = new bootstrap.Modal(document.getElementById("taskModal"));
 let editingTaskIndex = -1;
 
-// Abre o modal para adicionar nova tarefa
 function openNewTaskModal() {
   document.getElementById("edit-title").value = "";
   document.getElementById("edit-content").value = "";
   editingTaskIndex = -1;
-  modal.style.display = "flex";
+  modalElement.show();
 }
 
-// Deleta a tarefa selecionada (marcada com uma borda)
+function openModal(index) {
+  editingTaskIndex = index;
+  const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+  document.getElementById("edit-title").value = tasks[index].title;
+  document.getElementById("edit-content").value = tasks[index].content;
+  modalElement.show();
+}
+
+function closeModal() {
+  modalElement.hide();
+}
+
 function deleteSelectedTask() {
-  const selectedTask = document.querySelector(".task-card.selected");
-
-  if (selectedTask) {
-    const index = Array.from(selectedTask.parentElement.children).indexOf(
-      selectedTask
-    );
-    closeModal();
-    deleteTask(index);
-  } else {
-    alert("Selecione uma tarefa para excluir.");
+  if (editingTaskIndex === -1) {
+    alert("Nenhuma tarefa selecionada para deletar.");
+    return;
   }
+
+  const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+  tasks.splice(editingTaskIndex, 1);
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+  closeModal();
+  renderTasks();
 }
 
-// Adiciona um ícone de lápis e um botão "Deletar" para editar cada tarefa
-function addEditIcon(taskCard, index) {
-  const editIcon = document.createElement("span");
-  editIcon.classList.add("edit-icon");
-  editIcon.innerHTML = "&#9998;";
-
-  editIcon.addEventListener("click", () => openModal(index));
-
-  taskCard.appendChild(editIcon);
-}
-
-// Função para salvar uma tarefa
 function saveTask() {
   const title = document.getElementById("edit-title").value;
   const content = document.getElementById("edit-content").value;
@@ -61,7 +57,6 @@ function saveTask() {
   renderTasks();
 }
 
-// Função para deletar uma tarefa
 function deleteTask(index) {
   const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
   tasks.splice(index, 1);
@@ -70,34 +65,29 @@ function deleteTask(index) {
   renderTasks();
 }
 
-// Função para abrir o modal de edição
-function openModal(index) {
-  editingTaskIndex = index;
-  const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-  document.getElementById("edit-title").value = tasks[index].title;
-  document.getElementById("edit-content").value = tasks[index].content;
-  modal.style.display = "flex";
+function addEditIcon(taskCard, index) {
+  const editIcon = document.createElement("span");
+  editIcon.classList.add("edit-icon");
+  editIcon.innerHTML = "&#9998;";
+  editIcon.addEventListener("click", (e) => {
+    e.stopPropagation();
+    openModal(index);
+  });
+  taskCard.appendChild(editIcon);
 }
 
-// Função para fechar o modal
-function closeModal() {
-  modal.style.display = "none";
-}
-
-// Função para renderizar as tarefas na página
 function renderTasks() {
-  const taskContainer = document.getElementById("task-container");
   taskContainer.innerHTML = "";
-
   const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
   tasks.forEach((task, index) => {
     const taskCard = document.createElement("div");
     taskCard.classList.add("task-card");
     taskCard.innerHTML = `
-            <h2>${task.title}</h2>
-            <p>${task.content}</p>
-        `;
+      <h2>${task.title}</h2>
+      <p>${task.content}</p>
+    `;
+
     addEditIcon(taskCard, index);
 
     taskCard.addEventListener("click", () => {
@@ -108,8 +98,5 @@ function renderTasks() {
   });
 }
 
-// Executa a função renderTasks quando a página é carregada
 window.onload = renderTasks;
-
-// Adiciona um ouvinte de eventos para o botão "Nova Tarefa"
 newTaskBtn.addEventListener("click", openNewTaskModal);
